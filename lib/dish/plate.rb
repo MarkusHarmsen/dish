@@ -43,7 +43,7 @@ module Dish
       end
 
       def _cache_key(value)
-        [value.object_id, @_original_hash.hash].join('')
+        "#{value.object_id}#{@_original_hash.hash}"
       end
 
       def _check_for_presence(key)
