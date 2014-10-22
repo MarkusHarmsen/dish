@@ -73,7 +73,7 @@ class DishTest < Test::Unit::TestCase
     assert_nil Dish(nil)
   end
 
-  def test_as_hash
+  def test_to_h
     hash = {
       "a" => "a",
       "b" => "b",
@@ -83,8 +83,8 @@ class DishTest < Test::Unit::TestCase
       }
     }
     dish = Dish(hash)
-    c_hash = dish.c.as_hash
-    assert_equal "Hash", dish.c.as_hash.class.to_s
+    c_hash = dish.c.to_h
+    assert_equal "Hash", dish.c.to_h.class.to_s
     assert_equal hash["c"]["1"], c_hash["1"]
     assert_equal hash["c"]["2"], c_hash["2"]
   end
@@ -115,5 +115,34 @@ class DishTest < Test::Unit::TestCase
     hash.each do |key, _|
       assert_respond_to dish, key
     end
+  end
+
+  def test_set_value
+    hash = { a: 1, b: 2, c: false }
+    dish = Dish(hash)
+
+    dish.a = "other value"
+    assert_equal "other value", dish.a
+    
+    dish.b = nil
+    assert_equal nil, dish.b
+    assert_equal false, dish.b?
+
+    dish.c = true
+    assert_equal true, dish.c
+    assert_equal true, dish.c?
+
+    dish.d = "new value"
+    assert_equal "new value", dish.d
+
+    assert_equal({ "a" => "other value", "b" => nil, "c" => true, "d" => "new value" },
+                 dish.to_h)
+  end
+
+  def test_methods
+    hash = { a: 1, b: 2 }
+    dish = Dish(hash)
+
+    assert_equal [:a, :b], dish.methods[0..1]
   end
 end
