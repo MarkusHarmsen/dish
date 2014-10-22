@@ -113,7 +113,7 @@ Have fun!
 
 ## Converting back to Ruby/JSON objects
 
-You can use the `Dish::Plate#to_h` method for accessing the original hash. In addition `Dish::Plate#to_json` can be used for marshaling JSON if you are using RubyMotion (`NSJSONSerialization` is used) or have required [the "json" Ruby stdlib](http://www.ruby-doc.org/stdlib/libdoc/json/rdoc/JSON.html).
+You can use the `Dish::Plate#to_h` method for accessing the original hash.
 
 **NOTE:** Previously `Dish::Plate#to_h` was called `Dish::Plate#as_hash`. The `Dish::Plate#as_hash` method is now deprecated.
 
