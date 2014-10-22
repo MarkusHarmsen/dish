@@ -20,7 +20,7 @@ module Dish
       key = method[0..-2]
       if method.end_with?("?")
         !!_get_value(key)
-      elsif method.end_with? '='
+      elsif method.end_with?("=")
         _set_value(key, args.first)
       else
         _get_value(method)
@@ -36,8 +36,8 @@ module Dish
     end
 
     def as_hash
-      # TODO: Add the version number where this was deprecated?
-      warn 'Dish::Plate#as_hash has been deprecated. Use Dish::Plate#to_h.'
+      # Deprecated since version 0.0.5
+      warn "Dish::Plate#as_hash has been deprecated. Use Dish::Plate#to_h."
       to_h
     end
 
@@ -48,10 +48,8 @@ module Dish
 
     private
 
-      attr_reader :_original_hash
-
       def _get_value(key)
-        value = _original_hash[key]
+        value = @_original_hash[key]
         @_value_cache[_cache_key(value)] ||= _convert_value(value, self.class.coercions[key])
       end
 
@@ -64,7 +62,7 @@ module Dish
       end
 
       def _check_for_presence(key)
-        _original_hash.key?(key)
+        @_original_hash.key?(key)
       end
 
       def _convert_value(value, coercion)

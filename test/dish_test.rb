@@ -123,7 +123,7 @@ class DishTest < Test::Unit::TestCase
 
     dish.a = "other value"
     assert_equal "other value", dish.a
-    
+
     dish.b = nil
     assert_equal nil, dish.b
     assert_equal false, dish.b?
@@ -143,6 +143,6 @@ class DishTest < Test::Unit::TestCase
     hash = { a: 1, b: 2 }
     dish = Dish(hash)
 
-    assert_equal [:a, :b], dish.methods[0..1]
+    assert_equal true, ([:a, :b] - dish.methods).empty?
   end
 end
