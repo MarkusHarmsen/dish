@@ -62,7 +62,7 @@ module Dish
       end
 
       def _check_for_presence(key)
-        @_original_hash.key?(key)
+        @_original_hash && @_original_hash.key?(key)
       end
 
       def _convert_value(value, coercion)
