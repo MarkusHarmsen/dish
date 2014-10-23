@@ -28,7 +28,7 @@ module Dish
     end
 
     def respond_to_missing?(method, *args)
-      _check_for_presence(method.to_s) || super
+      _present?(method.to_s) || super
     end
 
     def to_h
@@ -61,8 +61,8 @@ module Dish
         @_original_hash[key] = value
       end
 
-      def _check_for_presence(key)
-        @_original_hash && @_original_hash.key?(key)
+      def _present?(key)
+        @_original_hash != nil && @_original_hash.key?(key)
       end
 
       def _convert_value(value, coercion)
